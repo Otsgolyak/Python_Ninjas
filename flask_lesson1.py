@@ -29,9 +29,9 @@ def gen_pass():
     return utils.gen_password(length)
 
 
-@app.route('/get_exchange_rate')
+@app.route('/get_exchange_rate', methods=['GET', 'POST'])
 def get_exchange():
-    currency = request.args.get('currency')
+    currency = request.form.get('curr')
     rate = utils.get_exchange_rate(currency)
     return render_template('btc.html', title='BTC', currency=currency, rate=rate)
 
@@ -48,4 +48,7 @@ def astros():
     return render_template('astros.html', title='Astros', astros=astros)
 
 
+@app.route('/csv')
+def csv():
+    return render_template('csv.html', title='CSV')
 app.run(debug=True)
