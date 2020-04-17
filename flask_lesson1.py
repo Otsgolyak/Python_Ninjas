@@ -1,12 +1,16 @@
-from flask import Flask, request, render_template
+import os
+
+from flask import Flask, request, render_template, send_from_directory
 import utils
 
 app = Flask('app')
 
 
+
+
 @app.route('/')
-def root():
-    return 'Hello'
+def index():
+    return render_template('index.html')
 
 
 @app.route('/now')
@@ -50,5 +54,18 @@ def astros():
 
 @app.route('/csv')
 def csv():
-    return render_template('csv.html', title='CSV')
+    av_height, av_weight = utils.csv_reader()
+    return render_template('csv.html', title='CSV', av_height=av_height, av_weight=av_weight)
+
+@app.route('/get-customers', methods=['GET', 'POST'])
+def get_customers():
+    city = request.form.get('city')
+    if not None:
+        query = "SELECT * FROM customers WHERE City='{}';".format(city)
+        records = utils.execute_query(query)
+        result = render_template('get_customers.html', fake_data=records)
+        return result
+    # else:
+    #     return render_template('get_customers.html')
+
 app.run(debug=True)

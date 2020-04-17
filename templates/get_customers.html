@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form action="" method="post">
+	<p>
+	    <label for="city">
+
+            <input type="text" name="city" placeholder="Enter City:" >
+       </label>
+
+    </p>
+	<p>
+	    <input type="submit" placeholder="Go!">
+	</p>
+    </form>
+
+
+    <div class="row">
+
+
+    <div class="col-md-4">
+{% for i in fake_data %}
+ <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+{% for j in i %}
+  <th>{{j}}<br></th>
+    </tr>
+  </thead>
+</table>
+	  {% endfor %}
+  </div>
+	 </div>
+		{% endfor %}
+		</div>
+		</div>
+
+
+
+
+
+
+
+
+{% endblock %}

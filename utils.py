@@ -1,5 +1,7 @@
 import json
+import os
 import random
+import sqlite3
 import string
 import datetime
 import requests
@@ -41,14 +43,11 @@ def get_exchange_rate(currency):
 
 
 def fake_data():
-    fake_list = []
-    counter = 0
     fake = Faker()
-    for _ in range(100):
-        name = fake.name()
-        email = fake.email()
-        counter += 1
-        fake_list.append([counter, name, email])
+    fake_list = [
+        [idx, fake.name(), fake.email()]
+        for idx, _ in enumerate(range(1, 101))
+    ]
     return fake_list
 
 
@@ -56,3 +55,26 @@ def astros():
     response = requests.get('http://api.open-notify.org/astros.json')
     result = json.loads(response.content)
     return result
+
+def csv_reader():
+    import csv
+    with open("students.csv", "r") as f:
+        reader = csv.DictReader(f, delimiter=',')
+        height = 0
+        weight = 0
+        count = 0
+        for line in reader:
+            count += 1
+            height += float(line["height"])
+            weight += float(line["weight"])
+        return round(height/count), round(weight/count)
+
+
+def execute_query(query):
+    db_path = os.path.join(os.getcwd(), 'chinook.db')
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute(query)
+    records = cur.fetchall()
+    return records
+
