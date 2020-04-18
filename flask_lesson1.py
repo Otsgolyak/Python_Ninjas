@@ -6,8 +6,6 @@ import utils
 app = Flask('app')
 
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -48,24 +46,36 @@ def table():
 
 @app.route('/astros')
 def astros():
+    """
+    HW with astronauts
+    :return: template
+    """
     astros = utils.astros()
     return render_template('astros.html', title='Astros', astros=astros)
 
 
 @app.route('/csv')
 def csv():
+    """
+    HW with CSV
+    :return: template
+    """
     av_height, av_weight = utils.csv_reader()
     return render_template('csv.html', title='CSV', av_height=av_height, av_weight=av_weight)
 
+
 @app.route('/get-customers', methods=['GET', 'POST'])
 def get_customers():
+    """
+    HW DB with customers
+    :return: template
+    """
     city = request.form.get('city')
     if not None:
         query = "SELECT * FROM customers WHERE City='{}';".format(city)
         records = utils.execute_query(query)
         result = render_template('get_customers.html', fake_data=records)
         return result
-    # else:
-    #     return render_template('get_customers.html')
+
 
 app.run(debug=True)

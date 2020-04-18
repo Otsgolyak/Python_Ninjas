@@ -12,9 +12,19 @@
 	</p>
     </form>
 
-<div class="card">
-  <div class="card-body">
-     Bitcoin rate in {{currency}}: {{rate}}
+<!--<div class="card">-->
+<!--  <div class="card-body">-->
+<!--     Bitcoin rate in {{currency}}: {{rate}}-->
+<!--  </div>-->
+<!--</div>-->
+<div class="container">
+    <div class="row">
+    <div class="col-xl-8">
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h2 class="display-2">BTC = {{rate}}</h2>
+      <p class="lead"><h3>rate in {{currency}}</h3></p>
   </div>
 </div>
+		</div>
 {% endblock %}
